@@ -2,6 +2,8 @@ package cn.agree.travel.web.servlet;
 
 import cn.agree.travel.model.ResultInfo;
 import cn.agree.travel.model.User;
+import cn.agree.travel.service.IUserService;
+import cn.agree.travel.service.impl.UserServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,6 +16,8 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "UserServlet", urlPatterns = "/user")
 public class UserServlet extends BaseServlet {
+
+    private IUserService service = new UserServiceImpl();
 
     /*
     *  校验用户名是否已经存在
@@ -28,7 +32,7 @@ public class UserServlet extends BaseServlet {
         User user = null;
         ResultInfo info = new ResultInfo(true);
         try {
-            // user = service.findUserByUserName(username);
+            user = service.findUserByUserName(username);
             //将user封装到json里面响应出去就可以了
             info.setData(user);
             //将info对象转换成json字符串
