@@ -7,6 +7,32 @@
         <link rel="stylesheet" href="css/register.css">
 		<!--导入jquery-->
 		<script src="js/jquery-3.3.1.js"></script>
+		
+		<script type="text/javascript">
+			var flag = false;
+
+            $("#username").blur(function () {
+                var uname = this.value
+                var reg = /^[a-zA-Z]\w{5,16}$/
+                if (reg.test(uname)) {
+                    $.post(
+                        "user",
+						{"username":uname,"action":"checkUserName"},
+						function (resultInfo) {
+                        	if (resultInfo.flag) {
+                                $("#uspan").text("用户名可用")
+                                flag = true
+                            }else {
+                                $("#uspan").text("用户名不可用")
+                            }
+                    	},
+						"json"
+					)
+                }else {
+                    $("#uspan").text("格式有误")
+                }
+            })
+		</script>
     </head>
 	<body>
 	<!--引入头部-->
