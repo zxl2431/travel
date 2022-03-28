@@ -9,7 +9,7 @@ public interface IUserService {
     User findUserByUserName(String username) throws Exception;
     boolean saveUser(User user) throws Exception;
 
-    User findUserByCode(String code) throws Exception;
+    boolean findUserByCode(String code) throws Exception;
 
     void updateUser(User user) throws Exception;
 

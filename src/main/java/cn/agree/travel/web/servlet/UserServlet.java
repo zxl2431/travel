@@ -118,7 +118,28 @@ public class UserServlet extends BaseServlet {
             info.setErrorMsg("验证码错误");
         }
         return info;
+    }
 
+    /*
+    *  用户激活
+    *
+    * */
+    public ResultInfo active(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        //1.获取用户传入的激活码
+        String code = request.getParameter("code");
+        //2.调用业务层的方法根据激活码进行激活
+        boolean flag = service.findUserByCode(code);
+        //3.判断是否激活
+        ResultInfo info = new ResultInfo();
+        if(flag){
+            //激活成功，跳转到登录页面
+            response.sendRedirect(request.getContextPath()+"/login.html");
+        }else{
+            //激活失败，显示激活失败
+            response.getWriter().write("激活失败");
+        }
+
+        return null;
     }
 
 }

@@ -8,7 +8,7 @@ public interface IUserDao {
 
     boolean saveUser(User user) throws Exception;
 
-    User findUserByCode(String code) throws Exception;
+    int findUserByCode(String code) throws Exception;
 
     void updateUser(User user) throws Exception;
 

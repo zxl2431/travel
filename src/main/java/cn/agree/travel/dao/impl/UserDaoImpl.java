@@ -1,5 +1,6 @@
 package cn.agree.travel.dao.impl;
 
+import cn.agree.travel.constant.Constant;
 import cn.agree.travel.dao.IUserDao;
 import cn.agree.travel.model.User;
 import cn.agree.travel.util.JDBCUtil;
@@ -41,8 +42,9 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public User findUserByCode(String code) throws Exception {
-        return null;
+    public int findUserByCode(String code) throws Exception {
+        String sql = "update tab_user set code=?,status=? where code=?";
+        return template.update(sql,0, Constant.ACTIVED,code);
     }
 
     @Override

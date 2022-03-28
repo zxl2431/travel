@@ -34,8 +34,14 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User findUserByCode(String code) throws Exception {
-        return null;
+    public boolean findUserByCode(String code) throws Exception {
+        // 调用dao层根据code更新用户信息
+        boolean flag = false;
+        int i = dao.findUserByCode(code);
+        if (i == 1) {
+            flag = true;
+        }
+        return flag;
     }
 
     @Override
