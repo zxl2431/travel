@@ -28,14 +28,14 @@ public final class MailUtil {
 		/*设置发件人*/
 		Authenticator auth = new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("service", "123456");
+				return new PasswordAuthentication("admin@agree.com", "123456");
 			}
 		};
 		Session session = Session.getInstance(props, auth);
 		//2_创建一封邮件
 		Message message = new MimeMessage(session);
 		/*设置发件人的邮箱地址*/
-		message.setFrom(new InternetAddress("service@travel.com"));
+		message.setFrom(new InternetAddress("admin@agree.com"));
 		message.setRecipient(RecipientType.TO, new InternetAddress(toEmail));
 		message.setSubject("用户激活");
 		message.setContent(emailMsg, "text/html;charset=UTF-8");
