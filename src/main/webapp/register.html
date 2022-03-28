@@ -11,7 +11,6 @@
 		<script type="text/javascript">
 			$(function () {
                 var flag = false;
-
                 $("#username").blur(function () {
                     var uname = this.value
                     var reg = /^[a-zA-Z]\w{5,16}$/
@@ -32,6 +31,28 @@
                     }else {
                         $("#uspan").text("格式有误")
                     }
+                })
+				
+				// 发送请求到服务器注册
+                $("#registerForm").submit(function () {
+                    if(flag) {
+                        $.post(
+                            "user",
+                            $(this).serialize()+"&action=register",
+                            function (resultInfo) {
+                                //获取响应结果
+                                if (resultInfo.flag) {
+                                    //注册成功
+                                    location.href = "register_ok.html"
+                                }else {
+                                    //注册失败
+                                    $("#msg").text(resultInfo.errorMsg)
+                                }
+                            },
+                            "json"
+                        )
+                    }
+                    return false;
                 })
             })
 

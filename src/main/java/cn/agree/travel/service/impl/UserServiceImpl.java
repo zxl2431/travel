@@ -7,6 +7,7 @@ import cn.agree.travel.exception.UnActiveException;
 import cn.agree.travel.exception.UserNameErrorException;
 import cn.agree.travel.model.User;
 import cn.agree.travel.service.IUserService;
+import cn.agree.travel.util.MailUtil;
 
 public class UserServiceImpl implements IUserService {
 
@@ -21,8 +22,15 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void saveUser(User user) throws Exception {
+    public boolean saveUser(User user) throws Exception {
+        // 调用dao
+        boolean flag = dao.saveUser(user);
+        if (flag) {
+            //如果注册成功，则发送邮件到客户端
+            // MailUtil.sendMail(user.getEmail(),"<a href='http://localhost:8080/travel/user?action=active&code="+user.getCode()+"'>点击激活<a>","用户激活");
+        }
 
+        return flag;
     }
 
     @Override

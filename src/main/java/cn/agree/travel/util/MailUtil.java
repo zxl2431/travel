@@ -46,7 +46,7 @@ public final class MailUtil {
 	 * 测试类
 	 */
 	public static void main(String[] args) throws Exception{
-		String toEmail = "zhangsan@itheima.com";
+		String toEmail = "zhangsan@agree.com";
 		String emailMsg = "测试一下";
 		sendMail(toEmail,emailMsg);
 		System.out.println("发送成功。。。");

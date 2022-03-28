@@ -3,6 +3,7 @@ package cn.agree.travel.dao.impl;
 import cn.agree.travel.dao.IUserDao;
 import cn.agree.travel.model.User;
 import cn.agree.travel.util.JDBCUtil;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,8 +25,19 @@ public class UserDaoImpl implements IUserDao {
     }
 
     @Override
-    public void saveUser(User user) throws Exception {
-
+    public boolean saveUser(User user) throws Exception {
+        String sql = "insert into tab_user values (?,?,?,?,?,?,?,?,?,?)";
+        boolean flag = false;
+        try {
+            int i = template.update(sql, user.getUid(), user.getUsername(), user.getPassword(), user.getName(), user.getBirthday(), user.getSex(),
+                    user.getTelephone(), user.getEmail(), user.getStatus(), user.getCode());
+            if (i == 1){
+                flag = true;
+            }
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return flag;
     }
 
     @Override

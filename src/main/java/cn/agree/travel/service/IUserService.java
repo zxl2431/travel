@@ -7,7 +7,7 @@ import cn.agree.travel.model.User;
 
 public interface IUserService {
     User findUserByUserName(String username) throws Exception;
-    void saveUser(User user) throws Exception;
+    boolean saveUser(User user) throws Exception;
 
     User findUserByCode(String code) throws Exception;
 
