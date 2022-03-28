@@ -40,6 +40,9 @@ public class UserServlet extends BaseServlet {
         ResultInfo info = new ResultInfo(true);
         try {
             user = service.findUserByUserName(username);
+            if (user != null) {
+                info.setFlag(false);
+            }
             //将user封装到json里面响应出去就可以了
             info.setData(user);
             //将info对象转换成json字符串
