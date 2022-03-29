@@ -1,3 +1,22 @@
+<script type="text/javascript">
+    $(function () {
+        console.log("header.html加载了")
+        $.post(
+            "user",
+            "action=getLoginData",
+            function (resultInfo) {
+                if(resultInfo.flag) {
+                    //已登录
+                    $(".login").html("<span>欢迎回来,"+resultInfo.data.username+"</span>\n" +
+                        "                <a href=\"myfavorite.html\" class=\"collection\">我的收藏</a>\n" +
+                        "                <a href=\"javascript:;\">退出</a>")
+                    $(".login_out").hide()
+                }
+            }
+        )
+    })
+</script>
+
 <!-- 头部 start -->
     <header id="header">
         <div class="top_banner">
@@ -11,10 +30,7 @@
             </div>
             <!-- 登录状态  -->
             <div class="login">
-            	
-                <span>欢迎回来，admin</span>
-                <a href="myfavorite.html" class="collection">我的收藏</a>
-                <a href="javascript:;">退出</a>
+
             </div>
         </div>
         <div class="header_wrap">
@@ -54,4 +70,4 @@
             <li><a href="favoriterank.html">收藏排行榜</a></li>
         </ul>
     </div>
-    
+

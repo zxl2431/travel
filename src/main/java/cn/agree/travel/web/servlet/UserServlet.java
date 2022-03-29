@@ -218,8 +218,34 @@ public class UserServlet extends BaseServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
+    public void getLoginData(HttpServletRequest request, HttpServletResponse response) {
+
+        System.out.println("UserServlet.getLoginData");
+        // 用session中获取user对选哪个
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        ResultInfo info = new ResultInfo(false);
+        if (user != null) {
+            info.setFlag(true);
+            info.setData(user);
+        }
+
+        //将info对象转换成json字符串
+        //使用jackson将对象转换成json字符串
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(info);
+            //使用字符输出流将json写出去
+            PrintWriter writer = response.getWriter();
+            writer.write(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
