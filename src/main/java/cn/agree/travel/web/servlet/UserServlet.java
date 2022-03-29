@@ -246,6 +246,14 @@ public class UserServlet extends BaseServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
+    public void loginOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        session.invalidate();
+
+        //重定向
+        response.sendRedirect("login.html");
+    }
+
 }
