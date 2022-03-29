@@ -1,10 +1,14 @@
 package cn.agree.travel.web.servlet;
 
+import cn.agree.travel.model.ResultInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -27,15 +31,25 @@ public class BaseServlet extends HttpServlet {
         // 3、使用字节码对象根据方法名获取方法
         try {
             Method method = clazz.getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
-            // 4、调用方法
-            method.setAccessible(true);
-            method.invoke(this, req, resp);
-
+            try {
+                ResultInfo info = (ResultInfo) method.invoke(this,req,resp);
+                if (info != null) {
+                    //将info对象转换成json字符串
+                    //使用jackson将对象转换成json字符串
+                    ObjectMapper mapper = new ObjectMapper();
+                    String json = mapper.writeValueAsString(info);
+                    // resp.setContentType("text/html;charset=utf-8");
+                    PrintWriter writer = resp.getWriter();
+                    writer.write(json);
+                    writer.flush();
+                    writer.close();
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
     }
