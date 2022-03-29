@@ -13,5 +13,5 @@ public interface IUserService {
 
     void updateUser(User user) throws Exception;
 
-    User doLogin(String username, String password) throws UserNameErrorException, PasswordErrorException, UnActiveException;
+    User doLogin(String username, String password) throws UserNameErrorException, PasswordErrorException, UnActiveException, Exception;
 }

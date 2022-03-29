@@ -1,5 +1,6 @@
 package cn.agree.travel.service.impl;
 
+import cn.agree.travel.constant.Constant;
 import cn.agree.travel.dao.IUserDao;
 import cn.agree.travel.dao.impl.UserDaoImpl;
 import cn.agree.travel.exception.PasswordErrorException;
@@ -8,6 +9,8 @@ import cn.agree.travel.exception.UserNameErrorException;
 import cn.agree.travel.model.User;
 import cn.agree.travel.service.IUserService;
 import cn.agree.travel.util.MailUtil;
+
+import java.io.NotActiveException;
 
 public class UserServiceImpl implements IUserService {
 
@@ -50,7 +53,22 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User doLogin(String username, String password) throws UserNameErrorException, PasswordErrorException, UnActiveException {
-        return null;
+    public User doLogin(String username, String password) throws Exception {
+        User user = dao.findUserByUserName(username);
+
+        if (user == null) {
+            throw new UserNameErrorException("用户名错误");
+        } else {
+            if (!password.equals(user.getPassword())) {
+                throw new PasswordErrorException("密码错误");
+            }
+        }
+
+        // 判断是否激活
+        if (user.getStatus() == Constant.UNACTIVE) {
+            throw new NotActiveException("请先激活");
+        }
+
+        return user;
     }
 }
