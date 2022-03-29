@@ -1,21 +1,4 @@
-<script type="text/javascript">
-    $(function () {
-        console.log("header.html加载了")
-        $.post(
-            "user",
-            "action=getLoginData",
-            function (resultInfo) {
-                if(resultInfo.flag) {
-                    //已登录
-                    $(".login").html("<span>欢迎回来,"+resultInfo.data.username+"</span>\n" +
-                        "                <a href=\"myfavorite.html\" class=\"collection\">我的收藏</a>\n" +
-                        "                <a href=\"javascript:;\">退出</a>")
-                    $(".login_out").hide()
-                }
-            }
-        )
-    })
-</script>
+
 
 <!-- 头部 start -->
     <header id="header">
@@ -55,6 +38,27 @@
         </div>
     </header>
     <!-- 头部 end -->
+    <script type="text/javascript">
+        $(function () {
+            console.log("header.html加载了")
+            $.post(
+                "user",
+                "action=getLoginData",
+                function (resultInfo) {
+                    console.log(resultInfo);
+                    if(resultInfo.flag) {
+                        console.log("这个应该执行了吧")
+                        //已登录
+                        $(".login").html("<span>欢迎回来,"+resultInfo.data.username+"</span>\n" +
+                            "                <a href=\"myfavorite.html\" class=\"collection\">我的收藏</a>\n" +
+                            "                <a href=\"javascript:;\">退出</a>")
+                        $(".login_out").hide()
+                    }
+                },
+                "json"
+            )
+        })
+    </script>
      <!-- 首页导航 -->
     <div class="navitem">
         <ul class="nav">
@@ -70,4 +74,6 @@
             <li><a href="favoriterank.html">收藏排行榜</a></li>
         </ul>
     </div>
+
+
 

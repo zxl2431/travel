@@ -93,7 +93,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .login {
-    width: 205px;
+    width: 250px;
     font-size: 12px;
 }
 .login a{
@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header_wrap {
-    widows: 100%;
+    windows: 100%;
     overflow: hidden;
 }
 
@@ -175,7 +175,7 @@ h1, h2, h3, h4, h5, h6 {
 
 :-ms-input-placeholder {
     /* Internet Explorer 10+ */
-    font-size: 12x;
+    font-size: 12px;
 }
 
 .hot_pic,
