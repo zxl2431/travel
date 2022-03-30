@@ -31,6 +31,7 @@ public class BaseServlet extends HttpServlet {
         // 3、使用字节码对象根据方法名获取方法
         try {
             Method method = clazz.getDeclaredMethod(action, HttpServletRequest.class, HttpServletResponse.class);
+            method.setAccessible(true);
             try {
                 ResultInfo info = (ResultInfo) method.invoke(this,req,resp);
                 if (info != null) {

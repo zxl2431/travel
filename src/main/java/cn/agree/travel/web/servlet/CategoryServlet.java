@@ -19,6 +19,8 @@ public class CategoryServlet extends BaseServlet {
     * */
     private ResultInfo findAllCategory(HttpServletRequest request, HttpServletResponse response) {
         ResultInfo resultInfo = null;
+
+        System.out.println("CategoryServlet.findAllCategory()进入...");
         try {
             String jsonData = categoryService.findAllCategory();
             resultInfo = new ResultInfo(true, jsonData, null);
@@ -26,7 +28,7 @@ public class CategoryServlet extends BaseServlet {
             e.printStackTrace();
             resultInfo = new ResultInfo(false);
         }
-
+        System.out.println("CategoryServlet.findAllCategory()退出resultInfo:"+resultInfo);
         return resultInfo;
 
     }
