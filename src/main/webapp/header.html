@@ -57,21 +57,31 @@
                 },
                 "json"
             )
+
+            // 页面加载完成以后 异步请求分类数据
+            $.post(
+                "category",
+                "action=findAllCategory",
+                function (result) {
+                    var categories = result.data;
+                    // eval()方法是将一个普通的字符串转换成一个js对象
+                    categories = eval("("+categories+")");
+                    
+                    // 遍历集合
+                    $.each(categories, function (index, element) {
+                        //一个element就代表一个category对象
+                        //每遍历出一个分类信息，就往ul中添加一个li
+                        $(".nav").append("<li><a href=\"route_list.html?cid="+element.cid+"&curPage=1\">"+element.cname+"</a></li>")
+                    })
+                },
+                "json"
+            )
         })
     </script>
      <!-- 首页导航 -->
     <div class="navitem">
         <ul class="nav">
             <li class="nav-active"><a href="index.html">首页</a></li>
-            <li><a href="route_list.html">门票</a></li>
-            <li><a href="route_list.html">酒店</a></li>
-            <li><a href="route_list.html">香港车票</a></li>
-            <li><a href="route_list.html">出境游</a></li>
-            <li><a href="route_list.html">国内游</a></li>
-            <li><a href="route_list.html">港澳游</a></li>
-            <li><a href="route_list.html">抱团定制</a></li>
-            <li><a href="route_list.html">全球自由行</a></li>
-            <li><a href="favoriterank.html">收藏排行榜</a></li>
         </ul>
     </div>
 
