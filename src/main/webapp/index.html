@@ -361,5 +361,56 @@
     <script src="js/bootstrap.min.js"></script>
     <!--导入布局js，共享header和footer-->
     <script type="text/javascript" src="js/include.js"></script>
+
+    <script>
+        //发起一个异步请求，获取黑马精选的内容
+        $.post("route","action=jingXuan",function (result) {
+            var data = result.data;//data就对应那个map集合
+            var popRouteList = data.popList;//人气旅游的4条路线
+            var themeRouteList = data.themeList;//主题旅游的4条路线
+            var newestRouteList = data.newestList;//最新旅游的4条路线
+            //遍历人气旅游的信息
+            $.each(popRouteList,function (index, element) {
+                //每一个element就代表一条路线
+                $("#popularity .row").append("<div class=\"col-md-3\">\n" +
+                    "                                <a href=\"javascript:;\">\n" +
+                    "                                    <img src=\""+element.rimage+"\" alt=\"\">\n" +
+                    "                                    <div class=\"has_border\">\n" +
+                    "                                        <h3>"+element.rname+"</h3>\n" +
+                    "                                        <div class=\"price\">网付价<em>￥</em><strong>"+element.price+"</strong><em>起</em></div>\n" +
+                    "                                    </div>\n" +
+                    "                                </a>\n" +
+                    "                            </div>")
+
+            })
+
+
+            //遍历最新旅游集合
+            $.each(newestRouteList,function (index, element) {
+                $("#newest .row").append("<div class=\"col-md-3\">\n" +
+                    "                                <a href=\"javascript:;\">\n" +
+                    "                                    <img src=\""+element.rimage+"\" alt=\"\">\n" +
+                    "                                    <div class=\"has_border\">\n" +
+                    "                                        <h3>"+element.rname+"</h3>\n" +
+                    "                                        <div class=\"price\">网付价<em>￥</em><strong>"+element.price+"</strong><em>起</em></div>\n" +
+                    "                                    </div>\n" +
+                    "                                </a>\n" +
+                    "                            </div>")
+            })
+
+            //遍历主题旅游集合
+            $.each(themeRouteList,function (index, element) {
+                $("#theme .row").append("<div class=\"col-md-3\">\n" +
+                    "                                <a href=\"javascript:;\">\n" +
+                    "                                    <img src=\""+element.rimage+"\" alt=\"\">\n" +
+                    "                                    <div class=\"has_border\">\n" +
+                    "                                        <h3>"+element.rname+"</h3>\n" +
+                    "                                        <div class=\"price\">网付价<em>￥</em><strong>"+element.price+"</strong><em>起</em></div>\n" +
+                    "                                    </div>\n" +
+                    "                                </a>\n" +
+                    "                            </div>")
+            })
+        },"json")
+    </script>
 </body>
 </html>
