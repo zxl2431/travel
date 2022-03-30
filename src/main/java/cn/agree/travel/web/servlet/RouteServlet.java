@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "RouteServlet", urlPatterns = "/jingXuan")
+@WebServlet(name = "RouteServlet", urlPatterns = "/route")
 public class RouteServlet extends BaseServlet {
 
     private IRouteService routeService = new RouteServiceImpl();
@@ -37,6 +37,7 @@ public class RouteServlet extends BaseServlet {
             resultInfo = new ResultInfo(false);
         }
 
+        System.out.println("RouteServlet.routeCareChoose() 结果:"+resultInfo);
         return resultInfo;
     }
 }
