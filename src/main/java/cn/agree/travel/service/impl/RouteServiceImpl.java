@@ -35,14 +35,25 @@ public class RouteServiceImpl implements IRouteService {
     public PageBean<Route> findPageBean(String cid, int curPage) {
         // 创建PageBean
         PageBean<Route> pageBean = new PageBean<Route>();
+        // 设置当前页
         pageBean.setCurPage(curPage);
-        pageBean.setPageSize(Constant.ROUTE_PAGESIZE);
+        // 每页条数自己设定
+        int pageSize = Constant.ROUTE_PAGESIZE;
+        pageBean.setPageSize(pageSize);
+        // 设置总条数
         Long totalSize = routeDao.getCountByCid(cid);
         pageBean.setTotalSize(totalSize);
+
+        // 设置多少页
+        Long totalPage = (totalSize % pageSize==0) ? (totalSize/pageSize) : (totalSize/pageSize + 1);
+        System.out.println("======"+(totalSize % pageSize) +"======="+(totalSize/pageSize) );
+        pageBean.setTotalPage(totalSize/pageSize);
 
         // 设置每一页的数据
         List<Route> routes = routeDao.findPageRoutes(curPage, cid, Constant.ROUTE_PAGESIZE);
 
-        return null;
+        pageBean.setList(routes);
+
+        return pageBean;
     }
 }

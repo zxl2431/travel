@@ -38,7 +38,7 @@ public class RouteServlet extends BaseServlet {
             resultInfo = new ResultInfo(false);
         }
 
-        System.out.println("RouteServlet.routeCareChoose() 结果:"+resultInfo);
+        // System.out.println("RouteServlet.routeCareChoose() 结果:"+resultInfo);
         return resultInfo;
     }
 
@@ -51,6 +51,8 @@ public class RouteServlet extends BaseServlet {
         //1.获取请求参数cid以及curPage
         String cid = request.getParameter("cid");
         int curPage = Integer.parseInt(request.getParameter("curPage"));
+
+        System.out.println("RouteServlet.findRoutesByCid():"+cid+"---"+curPage);
 
         ResultInfo info = new ResultInfo(true);
         //2.调用业务层的方法，获取当前数据分页的PageBean对象
