@@ -21,9 +21,25 @@
                 <div class="logo">
                     <a href="/"><img src="images/logo.jpg" alt=""></a>
                 </div>
+                <script src="js/getParameter.js"></script>
+                <script>
+                    var cid = getParameter("cid");
+                    //发起搜索
+                    function sear() {
+                        var keyword = $("#keyword").val();
+                        //跳转到route_list页面，并且要携带参数"搜索的内容"
+                        //到底有没有cid,如果有cid那么就在该类路线上进行搜索，如果没有cid，则在所有路线中进行搜索
+                        if (cid != null){
+                            //说明有cid
+                            location.href = "route_list.html?keyword="+keyword+"&cid="+cid+"&curPage=1"
+                        }else {
+                            location.href = "route_list.html?keyword="+keyword+"&curPage=1"
+                        }
+                    }
+                </script>
                 <div class="search">
-                    <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
-                    <a href="javascript:;" class="search-button">搜索</a>
+                    <input id="keyword" name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+                    <a href="javascript:;" class="search-button" onclick="sear()">搜索</a>
                 </div>
                 <div class="hottel">
                     <div class="hot_pic">

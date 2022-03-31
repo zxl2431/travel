@@ -3,9 +3,11 @@ package cn.agree.travel.dao.impl;
 import cn.agree.travel.dao.IRouteDao;
 import cn.agree.travel.model.Route;
 import cn.agree.travel.util.JDBCUtil;
+import cn.agree.travel.util.StringUtil;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RouteDaoImpl implements IRouteDao {
@@ -37,17 +39,54 @@ public class RouteDaoImpl implements IRouteDao {
     }
 
     @Override
-    public long getCountByCid(String cid) {
-        String sql = "select count(*) from tab_route where cid=? and rflag=?";
-        Long totalSize = jdbcTemplate.queryForObject(sql, Long.class, cid, "1");
+    public long getCountByCid(String cid, String keyword) {
+        //如果cid和keyword都不为空，我们的SQL语句该怎么写
+        /*String sql = "select count(*) from tab_route where cid=? and rname like ?";*/
+        //如果cid不为空，但是keyword为空，我们怎么写SQL语句
+        /*String sql = "select count(*) from tab_route where cid=?";*/
+        //如果keyword不为空，但是cid为空，我们怎么写SQL语句
+        /*String sql = "select count(*) from tab_route where rname LIKE ?";*/
+        //如果都为空，我们怎么写SQL语句
+        /*String sql = "select count(*) from tab_route";*/
+
+        String sql = "select count(*) from tab_route where 1=1";
+        // 声明一个集合,用于存放问号处的参数
+        List<Object> params = new ArrayList<>();
+        if (!StringUtil.isEmpty(cid)) {
+            sql += " and cid = ?";
+            params.add(cid);
+        }
+
+        if (!StringUtil.isEmpty(keyword)) {
+            sql += " and rname like ?";
+            params.add("%"+keyword+"%");
+        }
+
+        Long totalSize = jdbcTemplate.queryForObject(sql, Long.class, params.toArray());
         return totalSize;
     }
 
     @Override
-    public List<Route> findPageRoutes(int curPage, String cid, int pageSize) {
-        String sql = "select * from tab_route where cid=? and rflag=? limit ?,?";
-        List<Route> routeList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Route.class), cid, "1", (curPage - 1) * pageSize, pageSize);
-        return routeList;
+    public List<Route> findPageRoutes(int curPage, String cid, int pageSize, String keyword) {
+        //此时，判断cid和keyword是否为空
+        String sql = "select * from tab_route where 1=1";
+        List<Object> params = new ArrayList<>();
+        //判断cid不为空
+        if (!StringUtil.isEmpty(cid)) {
+            sql += " and cid=?";
+            params.add(cid);
+        }
+        //判断keyword不为空
+        if (!StringUtil.isEmpty(keyword)) {
+            sql += " and rname like ?";
+            params.add("%"+keyword+"%");
+        }
+        //还得拼接，分页的语句"limit"
+        sql += " limit ?,?";
+        params.add((curPage-1)*pageSize);
+        params.add(pageSize);
+        List<Route> routes = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Route.class), params.toArray());
+        return routes;
     }
 
 

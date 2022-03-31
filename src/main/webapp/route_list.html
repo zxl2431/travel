@@ -101,9 +101,11 @@
     //使用脚本里面的getParameter()方法
     var cid = getParameter("cid");
     var curPage = getParameter("curPage");
+    //获取"keyword"请求参数
+    var keyword = getParameter("keyword");
 
     //向服务器发送一个异步请求，获取当前分类的路线
-    $.post("route","action=findRoutesByCid&cid="+cid+"&curPage="+curPage,function (result) {
+    $.post("route","action=findRoutesByCid&cid="+cid+"&curPage="+curPage+"&keyword="+keyword,function (result) {
         //result就对应info对象，
         var page = result.data;//这就是我们java中的那个PageBean对象
         //1.获取PageBean中的那个路线集合

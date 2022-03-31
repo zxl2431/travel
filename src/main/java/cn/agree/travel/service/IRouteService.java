@@ -10,5 +10,5 @@ public interface IRouteService {
 
     Map<String, List<Route>> routeCareChoose();
 
-    PageBean<Route> findPageBean(String cid, int curPage);
+    PageBean<Route> findPageBean(String cid, int curPage, String keyword);
 }

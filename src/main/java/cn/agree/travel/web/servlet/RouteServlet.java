@@ -50,14 +50,20 @@ public class RouteServlet extends BaseServlet {
     private ResultInfo findRoutesByCid(HttpServletRequest request, HttpServletResponse response) {
         //1.获取请求参数cid以及curPage
         String cid = request.getParameter("cid");
+        //cid也可能是空
+        /*System.out.println(cid == null);
+        System.out.println(cid);*/
+        //在服务器这边做空判断，得考虑:null,空字符串,"null"字符串
         int curPage = Integer.parseInt(request.getParameter("curPage"));
+        // 获取keyword
+        String keyword = request.getParameter("keyword");//keyword可能是null
 
-        System.out.println("RouteServlet.findRoutesByCid():"+cid+"---"+curPage);
+        System.out.println("RouteServlet.findRoutesByCid():"+cid+"---"+keyword);
 
         ResultInfo info = new ResultInfo(true);
         //2.调用业务层的方法，获取当前数据分页的PageBean对象
         try {
-            PageBean<Route> pageBean = routeService.findPageBean(cid, curPage);
+            PageBean<Route> pageBean = routeService.findPageBean(cid, curPage, keyword);
             info.setData(pageBean);
         } catch (Exception e) {
             e.printStackTrace();

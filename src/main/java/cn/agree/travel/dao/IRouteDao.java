@@ -13,7 +13,7 @@ public interface IRouteDao {
     List<Route> getThemeRouteList();
 
     // 某类线路的总条数
-    long getCountByCid(String cid);
+    long getCountByCid(String cid, String keyword);
     // 分页查询某类线路的明细
-    List<Route> findPageRoutes(int curPage, String cid, int pageSize);
+    List<Route> findPageRoutes(int curPage, String cid, int pageSize, String keyword);
 }
