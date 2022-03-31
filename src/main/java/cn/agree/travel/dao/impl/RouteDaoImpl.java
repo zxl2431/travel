@@ -35,4 +35,20 @@ public class RouteDaoImpl implements IRouteDao {
         List<Route> routeList = jdbcTemplate.query(sql,new BeanPropertyRowMapper<Route>(Route.class));
         return routeList;
     }
+
+    @Override
+    public long getCountByCid(String cid) {
+        String sql = "select count(*) from tab_route where cid=? and rflag=?";
+        Long totalSize = jdbcTemplate.queryForObject(sql, Long.class, cid, "1");
+        return totalSize;
+    }
+
+    @Override
+    public List<Route> findPageRoutes(int curPage, String cid, int pageSize) {
+        String sql = "select * from tab_route where cid=? and rflag=? limit ?,?";
+        List<Route> routeList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Route.class), cid, "1", (curPage - 1) * pageSize, pageSize);
+        return routeList;
+    }
+
+
 }

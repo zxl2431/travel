@@ -1,7 +1,9 @@
 package cn.agree.travel.service.impl;
 
+import cn.agree.travel.constant.Constant;
 import cn.agree.travel.dao.IRouteDao;
 import cn.agree.travel.dao.impl.RouteDaoImpl;
+import cn.agree.travel.model.PageBean;
 import cn.agree.travel.model.Route;
 import cn.agree.travel.service.IRouteService;
 
@@ -27,5 +29,20 @@ public class RouteServiceImpl implements IRouteService {
         List<Route> themeList = routeDao.getThemeRouteList();
         map.put("theme",themeList);
         return map;
+    }
+
+    @Override
+    public PageBean<Route> findPageBean(String cid, int curPage) {
+        // 创建PageBean
+        PageBean<Route> pageBean = new PageBean<Route>();
+        pageBean.setCurPage(curPage);
+        pageBean.setPageSize(Constant.ROUTE_PAGESIZE);
+        Long totalSize = routeDao.getCountByCid(cid);
+        pageBean.setTotalSize(totalSize);
+
+        // 设置每一页的数据
+        List<Route> routes = routeDao.findPageRoutes(curPage, cid, Constant.ROUTE_PAGESIZE);
+
+        return null;
     }
 }

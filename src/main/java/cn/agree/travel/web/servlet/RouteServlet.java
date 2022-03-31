@@ -1,5 +1,6 @@
 package cn.agree.travel.web.servlet;
 
+import cn.agree.travel.model.PageBean;
 import cn.agree.travel.model.ResultInfo;
 import cn.agree.travel.model.Route;
 import cn.agree.travel.service.IRouteService;
@@ -40,4 +41,31 @@ public class RouteServlet extends BaseServlet {
         System.out.println("RouteServlet.routeCareChoose() 结果:"+resultInfo);
         return resultInfo;
     }
+
+    /*
+    *  根据分类id获取当前分类的某页信息
+    *
+    *
+    * */
+    private ResultInfo findRoutesByCid(HttpServletRequest request, HttpServletResponse response) {
+        //1.获取请求参数cid以及curPage
+        String cid = request.getParameter("cid");
+        int curPage = Integer.parseInt(request.getParameter("curPage"));
+
+        ResultInfo info = new ResultInfo(true);
+        //2.调用业务层的方法，获取当前数据分页的PageBean对象
+        try {
+            PageBean<Route> pageBean = routeService.findPageBean(cid, curPage);
+            info.setData(pageBean);
+        } catch (Exception e) {
+            e.printStackTrace();
+            info.setFlag(false);
+        }
+
+        return info;
+
+
+    }
+
+
 }

@@ -11,4 +11,9 @@ public interface IRouteDao {
     List<Route> getNewestRouteList();
     // 主题的
     List<Route> getThemeRouteList();
+
+    // 某类线路的总条数
+    long getCountByCid(String cid);
+    // 分页查询某类线路的明细
+    List<Route> findPageRoutes(int curPage, String cid, int pageSize);
 }
