@@ -3,6 +3,7 @@ package cn.agree.travel.web.servlet;
 import cn.agree.travel.model.PageBean;
 import cn.agree.travel.model.ResultInfo;
 import cn.agree.travel.model.Route;
+import cn.agree.travel.model.User;
 import cn.agree.travel.service.IRouteService;
 import cn.agree.travel.service.impl.RouteServiceImpl;
 
@@ -10,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -94,6 +96,8 @@ public class RouteServlet extends BaseServlet {
         System.out.println("RouteServlet.getRouteByRid()的查询结果:"+info);
         return info;
     }
+
+
 
 
 }
