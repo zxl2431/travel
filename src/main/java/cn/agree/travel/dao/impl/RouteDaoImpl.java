@@ -2,13 +2,16 @@ package cn.agree.travel.dao.impl;
 
 import cn.agree.travel.dao.IRouteDao;
 import cn.agree.travel.model.Route;
+import cn.agree.travel.model.RouteImg;
 import cn.agree.travel.util.JDBCUtil;
 import cn.agree.travel.util.StringUtil;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RouteDaoImpl implements IRouteDao {
 
@@ -87,6 +90,33 @@ public class RouteDaoImpl implements IRouteDao {
         params.add(pageSize);
         List<Route> routes = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Route.class), params.toArray());
         return routes;
+    }
+
+    @Override
+    public Map<String, Object> getRouteByRid(String rid) {
+        String sql = "select * from tab_route r,tab_category c,tab_seller s where r.cid=c.cid and r.sid=s.sid and r.rflag=? and r.rid=?";
+        Map<String, Object> map = null;
+
+        try {
+            map = jdbcTemplate.queryForMap(sql, "1", rid);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @Override
+    public List<RouteImg> getRouteImgsByRid(String rid) {
+        String sql = "select * from tab_route_img where rid=?";
+
+        List<RouteImg> routeImgs = null;
+        try {
+            routeImgs = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(RouteImg.class), rid);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return routeImgs;
     }
 
 

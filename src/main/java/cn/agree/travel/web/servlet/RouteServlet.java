@@ -71,8 +71,28 @@ public class RouteServlet extends BaseServlet {
         }
 
         return info;
+    }
 
+    /*
+    *  根据rid查询单个商品详细信息
+    *
+    * */
+    public ResultInfo getRouteByRid(HttpServletRequest request, HttpServletResponse response) {
+        //1.获取请求参数rid
+        String rid = request.getParameter("rid");
+        //2.调用业务层的方法，根据rid获取对应的route信息
+        ResultInfo info = new ResultInfo(false);
+        try {
+            Route route = routeService.getRouteByRid(rid);
+            info.setFlag(true);
+            info.setData(route);
+        } catch (Exception e) {
+            e.printStackTrace();
+            info.setErrorMsg(e.getMessage());
+        }
 
+        System.out.println("RouteServlet.getRouteByRid()的查询结果:"+info);
+        return info;
     }
 
 

@@ -3,10 +3,11 @@ package cn.agree.travel.service.impl;
 import cn.agree.travel.constant.Constant;
 import cn.agree.travel.dao.IRouteDao;
 import cn.agree.travel.dao.impl.RouteDaoImpl;
-import cn.agree.travel.model.PageBean;
-import cn.agree.travel.model.Route;
+import cn.agree.travel.model.*;
 import cn.agree.travel.service.IRouteService;
+import org.apache.commons.beanutils.BeanUtils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,4 +56,32 @@ public class RouteServiceImpl implements IRouteService {
 
         return pageBean;
     }
+
+    @Override
+    public Route getRouteByRid(String rid) throws Exception {
+        // 调用dao层根据rid获取route对象
+        Map<String, Object> map = routeDao.getRouteByRid(rid);
+
+        // 将map中的数据封装到route对象上
+        Route route = new Route();
+        BeanUtils.populate(route, map);
+
+        Seller seller = new Seller();
+        BeanUtils.populate(seller, map);
+
+        Category category = new Category();
+        BeanUtils.populate(category, map);
+
+        route.setSeller(seller);
+        route.setCategory(category);
+
+        // 设置route中大小图片的集合
+        List<RouteImg> imgs = routeDao.getRouteImgsByRid(rid);
+        route.setRouteImgList(imgs);
+
+
+        return route;
+    }
+
+
 }
