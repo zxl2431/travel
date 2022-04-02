@@ -29,9 +29,12 @@ public class FavoriteServlet extends BaseServlet {
         User user = (User) session.getAttribute("user");
         ResultInfo info = new ResultInfo(false);
 
+        System.out.println("FavoriteServlet.addFavorite():"+rid);
+
         try {
             if (user != null) { // 已登录
                 boolean flag = favoriteService.addFavorite(user, rid);
+                info.setFlag(flag);
                 if (flag) {
                     // 添加成功
                     // 重新查找该条线路的收藏次数
