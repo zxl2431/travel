@@ -2,6 +2,7 @@ package cn.agree.travel.web.servlet;
 
 import cn.agree.travel.exception.UnActiveException;
 import cn.agree.travel.model.Favorite;
+import cn.agree.travel.model.PageBean;
 import cn.agree.travel.model.ResultInfo;
 import cn.agree.travel.model.User;
 import cn.agree.travel.service.IFavoriteService;
@@ -82,4 +83,32 @@ public class FavoriteServlet extends BaseServlet {
 
         return info;
     }
+
+    /*
+    *  查看个人收藏
+    *
+    * */
+    private ResultInfo findMyFavorite(HttpServletRequest request, HttpServletResponse response) {
+        // 获取客户端携带过来的参数
+        Integer curPage = Integer.parseInt(request.getParameter("curPage"));
+        // 获取当前用户信息
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+
+        ResultInfo info = new ResultInfo(true);
+
+        // 调用业务
+        try {
+            PageBean<Favorite> pageBean = favoriteService.findMyFavorite(user, curPage);
+            info.setData(pageBean);
+        } catch (Exception e) {
+            e.printStackTrace();
+            info.setFlag(false);
+        }
+
+        return info;
+
+    }
+
+
 }
