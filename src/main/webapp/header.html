@@ -89,6 +89,9 @@
                         //每遍历出一个分类信息，就往ul中添加一个li
                         $(".nav").append("<li><a href=\"route_list.html?cid="+element.cid+"&curPage=1\">"+element.cname+"</a></li>")
                     })
+
+                    //添加收藏排行榜
+                    $(".nav").append("<li><a href='favoriterank.html?curPage=1'>收藏排行榜</a></li>")
                 },
                 "json"
             )

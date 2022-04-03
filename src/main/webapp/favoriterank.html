@@ -8,6 +8,12 @@
         <script src="js/jquery-3.3.1.js"></script>
     </head>
     <body>
+    <script>
+        //声明一个函数，当点击搜索按钮的时候，跳转到favoriterank.html页面
+        function seac() {
+            location.href = "favoriterank.html?curPage=1&rname="+$("#rname").val()+"&min="+$("#min").val()+"&max="+$("#max").val()
+        }
+    </script>
     <!--引入头部-->
     <div id="header"></div>
         <div class="contant">
@@ -20,96 +26,12 @@
             </div>
             <div class="list clearfix">
                 <ul>
-                    <li>
-                        <span class="num one">1</span>
-                        <a href="route_detail.html"><img src="images/jiangxuan_4.jpg" alt=""></a>
-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
-                        <p>
-                            <b class="price">&yen;<span>899</span>起</b>
-                            <span class="shouchang">已收藏450次</span>
-                        </p>
-                    </li>
-                    <li>
-                        <span class="num two">2</span>
-                         <a href="route_detail.html"><img src="images/jiangxuan_4.jpg" alt=""></a>
-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
-                        <p>
-                            <b class="price">&yen;<span>899</span>起</b>
-                            <span class="shouchang">已收藏450次</span>
-                        </p>
-                    </li>
-                    <li>
-                        <span class="num">3</span>
-                         <a href="route_detail.html"><img src="images/jiangxuan_4.jpg" alt=""></a>
-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
-                        <p>
-                            <b class="price">&yen;<span>899</span>起</b>
-                            <span class="shouchang">已收藏450次</span>
-                        </p>
-                    </li>
-                    <li>
-                        <span class="num">4</span>
-                         <a href="route_detail.html"><img src="images/jiangxuan_4.jpg" alt=""></a>
-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
-                        <p>
-                            <b class="price">&yen;<span>899</span>起</b>
-                            <span class="shouchang">已收藏450次</span>
-                        </p>
-                    </li>
-                    <li>
-                        <span class="num">5</span>
-                         <a href="route_detail.html"><img src="images/jiangxuan_4.jpg" alt=""></a>
-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
-                        <p>
-                            <b class="price">&yen;<span>899</span>起</b>
-                            <span class="shouchang">已收藏450次</span>
-                        </p>
-                    </li>
-                    <li>
-                        <span class="num">6</span>
-                         <a href="route_detail.html"><img src="images/jiangxuan_4.jpg" alt=""></a>
-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
-                        <p>
-                            <b class="price">&yen;<span>899</span>起</b>
-                            <span class="shouchang">已收藏450次</span>
-                        </p>
-                    </li>
-                    <li>
-                        <span class="num">7</span>
-                         <a href="route_detail.html"><img src="images/jiangxuan_4.jpg" alt=""></a>
-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
-                        <p>
-                            <b class="price">&yen;<span>899</span>起</b>
-                            <span class="shouchang">已收藏450次</span>
-                        </p>
-                    </li>
-                    <li>
-                        <span class="num">8</span>
-                        <a href="route_detail.html"><img src="images/jiangxuan_4.jpg" alt=""></a>
-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
-                        <p>
-                            <b class="price">&yen;<span>899</span>起</b>
-                            <span class="shouchang">已收藏450次</span>
-                        </p>
-                    </li>
+
                 </ul>
             </div>
             <div class="pageNum">
                 <ul>
-                    <li><a href="">首页</a></li>
-                    <li class="threeword"><a href="#">上一页</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">7</a></li>
-                    <li><a href="#">8</a></li>
-                    <li><a href="#">9</a></li>
-                    <li><a href="#">10</a></li>
-                    <li class="threeword"><a href="javascript:;">下一页</a></li>
-                    <li class="threeword"><a href="javascript:;">末页</a></li>
+
                 </ul>
             </div>
         </div>
@@ -118,5 +40,103 @@
    		 <div id="footer"></div>
     <!--导入布局js，共享header和footer-->
     <script type="text/javascript" src="js/include.js"></script>
+    <script src="js/getParameter.js"></script>
+    <script>
+        //获取参数
+        var curPage = getParameter("curPage");
+        var rname = getParameter("rname");
+        //获取到的rname是经过了编码后的数据
+        rname = decodeURI(rname)
+
+        if(rname == null || rname == "null"){
+            rname = ""
+        }
+        var min = getParameter("min");
+        var max = getParameter("max");
+        //获取完参数之后，将参数设置到对应的框中
+        $("#rname").val(rname)
+        $("#min").val(min)
+        $("#max").val(max)
+
+        //向服务器发送异步请求，获取收藏排行榜的分页信息
+        $.post("favorite","action=favoriteRank&curPage="+curPage+"&rname="+rname+"&min="+min+"&max="+max,function (result) {
+            var page = result.data;
+            var pageSize = page.pageSize;
+            var curPage = page.curPage;
+            var totalPage = page.totalPage;
+            var list = page.list;
+
+            //遍历数据集合
+            $.each(list,function (index, element) {
+                var cls = "num"
+                if(curPage == 1){
+                    //第一页
+                    if(index == 0){
+                        //第一条
+                        cls = "num one"
+                    }
+
+                    if(index == 1){
+                        //第二条
+                        cls = "num two"
+                    }
+                }
+                //每遍历出来一个element，就代表一条路线
+                $(".clearfix ul").append("<li>\n" +
+                    "                        <span class=\""+cls+"\">"+((curPage-1)*pageSize+(index+1))+"</span>\n" +
+                    "                        <a href=\"route_detail.html\"><img src=\""+element.rimage+"\" alt=\"\"></a>\n" +
+                    "                        <h4><a href=\"route_detail.html\">"+element.rname+"</a></h4>\n" +
+                    "                        <p>\n" +
+                    "                            <b class=\"price\">&yen;<span>￥"+element.price+"</span>起</b>\n" +
+                    "                            <span class=\"shouchang\">已收藏"+element.count+"次</span>\n" +
+                    "                        </p>\n" +
+                    "                    </li>")
+            })
+
+            //显示页码
+            //1.如果当前不是第一页，则显示"首页"和"上一页"
+            if(curPage != 1){
+                $(".pageNum ul").append("<li><a href=\"favoriterank.html?curPage=1&rname="+rname+"&min="+min+"&max="+max+"\">首页</a></li>\n" +
+                    "                            <li class=\"threeword\"><a href=\"favoriterank.html?curPage="+(curPage-1)+"&rname="+rname+"&min="+min+"&max="+max+"\">上一页</a></li>")
+            }
+            //定义开始循环的变量和结束循环的变量
+            var begin = 1
+            var end = 10
+
+            //开始改变begin和end，begin和end跟curPage有关
+            if (curPage > 6){
+                //end = 当前页+4
+                end = curPage + 4
+
+                //由尾页确定首页，首页就等于尾页-9
+                begin = end - 9
+            }
+            //end一定要小于等于总页数
+            if (end > totalPage) {
+                end = totalPage
+            }
+
+            //如果总页数<=10的话，那么begin是1，end是总页数
+            if (totalPage <= 10){
+                begin = 1
+            }
+            //2.显示所有页码，也就是从首页一直遍历到最后一页
+            for(var i=begin;i<=end;i++){
+                //判断当前页，并且高亮显示
+                if(curPage == i){
+                    $(".pageNum ul").append("<li style='background-color: orange'><a href=\"script:;\">"+i+"</a></li>")
+                }else {
+                    //每遍历出一个页码，则添加一个li
+                    $(".pageNum ul").append("<li><a href=\"favoriterank.html?curPage="+i+"&rname="+rname+"&min="+min+"&max="+max+"\">"+i+"</a></li>")
+                }
+
+            }
+            //3.如果当前页不是最后一页(就是总页数)，则显示"下一页"和"末页"
+            if (curPage != totalPage){
+                $(".pageNum ul").append("<li class=\"threeword\"><a href=\"favoriterank.html?curPage="+(curPage+1)+"&rname="+rname+"&min="+min+"&max="+max+"\">下一页</a></li>\n" +
+                    "                            <li class=\"threeword\"><a href=\"favoriterank.html?curPage="+totalPage+"&rname="+rname+"&min="+min+"&max="+max+"\">末页</a></li>")
+            }
+        },"json")
+    </script>
     </body>
 </html>
