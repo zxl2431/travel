@@ -119,5 +119,65 @@ public class RouteDaoImpl implements IRouteDao {
         return routeImgs;
     }
 
+    @Override
+    public long findRouteCount(String rname, String min, String max) {
+        //路线名要满足搜索的路线名，也就是使用模糊查询
+        //price要大于等于min,小于等于max
+        //此时要考虑有没有这些搜索条件
+        /*String sql = "select count(*) from tab_route where rflag=1 and rname like ? and price>=? and price<=?";*/
+
+        String sql = "select count(*) from tab_route where rflag=1";
+
+        List<Object> params = new ArrayList<>();
+        //判断有没有rname
+        if (!StringUtil.isEmpty(rname)) {
+            //说明有rname
+            sql += " and rname like ?";
+            params.add("%"+rname+"%");
+        }
+        if (!StringUtil.isEmpty(min)) {
+            //说明有min
+            sql += " and price>=?";
+            params.add(min);
+        }
+        if (!StringUtil.isEmpty(max)) {
+            //说明有max
+            sql += " and price<=?";
+            params.add(max);
+        }
+        Long count = jdbcTemplate.queryForObject(sql, Long.class,params.toArray());
+        return count;
+    }
+
+    @Override
+    public List<Route> findFavoriteRankRoutes(int curPage, int pageSize, String rname, String min, String max) {
+        //查看路线的分页集合
+        //1.路线必须上架的。2.按照路线的count字段的降序排列。3.分组
+        String sql = "select * from tab_route where rflag=1";
+        List<Object> params = new ArrayList<>();
+        //判断有没有rname
+        if (!StringUtil.isEmpty(rname)) {
+            //说明有rname
+            sql += " and rname like ?";
+            params.add("%"+rname+"%");
+        }
+        if (!StringUtil.isEmpty(min)) {
+            //说明有min
+            sql += " and price>=?";
+            params.add(min);
+        }
+        if (!StringUtil.isEmpty(max)) {
+            //说明有max
+            sql += " and price<=?";
+            params.add(max);
+        }
+        //拼接order by 和limit
+        sql += " order by count desc limit ?,?";
+        params.add((curPage-1)*pageSize);
+        params.add(pageSize);
+        List<Route> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Route.class), params.toArray());
+        return list;
+    }
+
 
 }

@@ -2,7 +2,9 @@ package cn.agree.travel.service.impl;
 
 import cn.agree.travel.constant.Constant;
 import cn.agree.travel.dao.IFavoriteDao;
+import cn.agree.travel.dao.IRouteDao;
 import cn.agree.travel.dao.impl.FavoriteDaoImpl;
+import cn.agree.travel.dao.impl.RouteDaoImpl;
 import cn.agree.travel.model.Favorite;
 import cn.agree.travel.model.PageBean;
 import cn.agree.travel.model.Route;
@@ -25,6 +27,7 @@ import java.util.Map;
 public class FavoriteServiceImpl implements IFavoriteService {
 
     private IFavoriteDao favoriteDao = new FavoriteDaoImpl();
+    private IRouteDao routeDao = new RouteDaoImpl();
 
     @Override
     public Favorite isFavorite(String rid, User user) {
@@ -124,5 +127,23 @@ public class FavoriteServiceImpl implements IFavoriteService {
         pageBean.setList(favorites);
         return pageBean;
 
+    }
+
+    @Override
+    public PageBean<Route> findFavoriteRank(int curPage, String rname, String min, String max) {
+        // 创建PageBean
+        PageBean<Route> pageBean = new PageBean<>();
+        pageBean.setCurPage(curPage);
+        int pageSize = Constant.ROUTE_PAGESIZE;
+        long totalSize = routeDao.findRouteCount(rname, min, max);
+        pageBean.setTotalSize(totalSize);
+        Long totalPage = (totalSize % pageSize==0) ? (totalSize/pageSize) : (totalSize/pageSize + 1);
+        pageBean.setTotalPage(totalPage);
+
+        // 设置每页的数据集合
+        List<Route> routes = routeDao.findFavoriteRankRoutes(curPage,pageSize,rname,min,max);
+        pageBean.setList(routes);
+
+        return pageBean;
     }
 }

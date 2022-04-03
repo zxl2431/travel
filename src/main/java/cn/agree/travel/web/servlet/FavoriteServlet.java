@@ -1,10 +1,7 @@
 package cn.agree.travel.web.servlet;
 
 import cn.agree.travel.exception.UnActiveException;
-import cn.agree.travel.model.Favorite;
-import cn.agree.travel.model.PageBean;
-import cn.agree.travel.model.ResultInfo;
-import cn.agree.travel.model.User;
+import cn.agree.travel.model.*;
 import cn.agree.travel.service.IFavoriteService;
 import cn.agree.travel.service.impl.FavoriteServiceImpl;
 
@@ -100,6 +97,30 @@ public class FavoriteServlet extends BaseServlet {
         // 调用业务
         try {
             PageBean<Favorite> pageBean = favoriteService.findMyFavorite(user, curPage);
+            info.setData(pageBean);
+        } catch (Exception e) {
+            e.printStackTrace();
+            info.setFlag(false);
+        }
+
+        return info;
+
+    }
+
+    /*
+    *  查看收藏排行榜
+    *
+    * */
+    private ResultInfo favoriteRank(HttpServletRequest request, HttpServletResponse response) {
+        int curPage = Integer.parseInt(request.getParameter("curPage"));
+        String rname = request.getParameter("rname");
+        String min = request.getParameter("min");
+        String max = request.getParameter("max");
+
+        ResultInfo info = new ResultInfo(true);
+
+        try {
+            PageBean<Route> pageBean = favoriteService.findFavoriteRank(curPage,rname,min,max);
             info.setData(pageBean);
         } catch (Exception e) {
             e.printStackTrace();

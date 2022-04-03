@@ -22,4 +22,8 @@ public interface IRouteDao {
     Map<String,Object> getRouteByRid(String rid);
 
     List<RouteImg> getRouteImgsByRid(String rid);
+
+    long findRouteCount(String rname, String min, String max);
+
+    List<Route> findFavoriteRankRoutes(int curPage, int pageSize, String rname, String min, String max);
 }
