@@ -9,6 +9,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+import java.util.Map;
+
 public class FavoriteDaoImpl implements IFavoriteDao {
 
     JdbcTemplate template = new JdbcTemplate(JDBCUtil.getDataSource());
@@ -42,5 +45,19 @@ public class FavoriteDaoImpl implements IFavoriteDao {
         String sql = "select count from tab_route where rid=?";
         Integer count = template.queryForObject(sql, Integer.class, rid);
         return count;
+    }
+
+    @Override
+    public Long findMyFavoriteCount(User user) {
+        String sql = "select count(*) from tab_favorite where uid=?";
+        Long count = template.queryForObject(sql, Long.class, user.getUid());
+        return count;
+    }
+
+    @Override
+    public List<Map<String, Object>> findPageFavorites(User user, int curPage, int pageSize) {
+        String sql = "select * from tab_favorite f,tab_route r where f.rid=r.rid and uid=? limit ?,?";
+        List<Map<String, Object>> maps = template.queryForList(sql, user.getUid(), (curPage - 1) * pageSize, pageSize);
+        return maps;
     }
 }

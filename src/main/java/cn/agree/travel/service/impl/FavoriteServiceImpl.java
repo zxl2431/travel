@@ -1,18 +1,26 @@
 package cn.agree.travel.service.impl;
 
+import cn.agree.travel.constant.Constant;
 import cn.agree.travel.dao.IFavoriteDao;
 import cn.agree.travel.dao.impl.FavoriteDaoImpl;
 import cn.agree.travel.model.Favorite;
+import cn.agree.travel.model.PageBean;
+import cn.agree.travel.model.Route;
 import cn.agree.travel.model.User;
 import cn.agree.travel.service.IFavoriteService;
 import cn.agree.travel.util.JDBCUtil;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.sql.DataSource;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class FavoriteServiceImpl implements IFavoriteService {
 
@@ -78,5 +86,43 @@ public class FavoriteServiceImpl implements IFavoriteService {
             e.printStackTrace();
         }
         return count;
+    }
+
+    @Override
+    public PageBean<Favorite> findMyFavorite(User user, int curPage) throws Exception {
+        // 创建PageBean
+        PageBean<Favorite> pageBean = new PageBean<>();
+        // 设置pagebean
+        pageBean.setCurPage(curPage);
+        int pageSize = Constant.ROUTE_PAGESIZE;
+        pageBean.setPageSize(pageSize);
+        // 获取当前用户所有的收藏记录
+        Long totalSize = favoriteDao.findMyFavoriteCount(user);
+        pageBean.setTotalSize(totalSize);
+        // 设置多少页
+        Long totalPage = (totalSize % pageSize==0) ? (totalSize/pageSize) : (totalSize/pageSize + 1);
+        pageBean.setTotalPage(totalPage);
+
+        // 调用dao 获取当前页的数据
+        List<Map<String, Object>> maps = favoriteDao.findPageFavorites(user, curPage, pageSize);
+        // 用一个集合放favorite
+        List<Favorite> favorites = new ArrayList<>();
+        // 遍历
+        for (Map<String, Object> map : maps) {
+            Favorite favorite = new Favorite();
+            BeanUtils.populate(favorite, map); // 这一步其实只设置好了date
+            // 还需要user和router
+            favorite.setUser(user);
+
+            Route route = new Route();
+            BeanUtils.populate(route, map);
+            favorite.setRoute(route);
+
+            favorites.add(favorite);
+
+        }
+        pageBean.setList(favorites);
+        return pageBean;
+
     }
 }
